@@ -198,12 +198,13 @@ function App() {
   const HomePage = () => (
     <div className="home-page">
       <div className="hero-section">
-        <img 
-          src="https://customer-assets.emergentagent.com/job_corte-urbano/artifacts/lsx7htp1_IMG-20250812-WA0025.jpg" 
-          alt="Barbearia Urbana Logo" 
-          className="logo"
-        />
-        <h1 className="welcome-title">Bem-vindo à Barbearia Urbana</h1>
+        <div className="brand-container">
+          <h1 className="brand-title">Barbearia Urbana</h1>
+          <div className="brand-icon">
+            <Scissors className="brand-scissors" />
+          </div>
+        </div>
+        <h2 className="welcome-title">Bem-vindo à Nossa Barbearia</h2>
         <p className="welcome-subtitle">
           Tradição, estilo e modernidade em cada corte. <br />
           A melhor experiência de barbearia da cidade.
