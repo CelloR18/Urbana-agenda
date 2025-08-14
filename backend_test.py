@@ -143,11 +143,11 @@ class BarbeariaAPITester:
         
         appointment_data = {
             "service_id": test_service.get('id'),
-            "client_name": "João Silva",
-            "client_phone": "(11) 99999-8888",
-            "client_email": "joao.silva@email.com",
+            "client_name": "Maria Santos",
+            "client_phone": "(11) 98888-7777",
+            "client_email": "maria.santos@email.com",
             "date": tomorrow,
-            "time": "10:00"
+            "time": "14:30"  # Changed to 2:30 PM to avoid conflicts
         }
         
         success, response = self.run_test(
