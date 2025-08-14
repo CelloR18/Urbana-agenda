@@ -309,7 +309,7 @@ async def get_appointment(appointment_id: str):
     return Appointment(**appointment)
 
 @app.put("/api/appointments/{appointment_id}/cancel")
-async def cancel_appointment(appointment_id: str):
+async def cancel_appointment(appointment_id: str, current_user: str = Depends(verify_token)):
     appointments_collection = db.appointments
     result = await appointments_collection.update_one(
         {"id": appointment_id},
