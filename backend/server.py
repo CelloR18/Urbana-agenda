@@ -134,6 +134,62 @@ async def init_services():
 async def startup_event():
     await init_services()
 
+# Authentication functions
+def create_access_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(hours=24)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    try:
+        token = credentials.credentials
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None or username != ADMIN_USERNAME:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token inválido",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        return username
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token expirado",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except jwt.JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token inválido",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+# Authentication endpoints
+@app.post("/api/login", response_model=LoginResponse)
+async def login(login_request: LoginRequest):
+    if login_request.username != ADMIN_USERNAME or login_request.password != ADMIN_PASSWORD:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Usuário ou senha incorretos"
+        )
+    
+    access_token = create_access_token(data={"sub": login_request.username})
+    return LoginResponse(
+        access_token=access_token,
+        token_type="bearer",
+        message="Login realizado com sucesso"
+    )
+
+@app.post("/api/logout")
+async def logout():
+    return {"message": "Logout realizado com sucesso"}
+
+@app.get("/api/verify-token")
+async def verify_user_token(current_user: str = Depends(verify_token)):
+    return {"valid": True, "username": current_user}
+
 # Services endpoints
 @app.get("/api/services", response_model=List[Service])
 async def get_services():
