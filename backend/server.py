@@ -29,6 +29,15 @@ MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
 client = AsyncIOMotorClient(MONGO_URL)
 db = client.barbearia_urbana
 
+# JWT configuration
+JWT_SECRET = os.environ.get("JWT_SECRET", "barbearia-urbana-secret-key-2025")
+JWT_ALGORITHM = "HS256"
+security = HTTPBearer()
+
+# Admin credentials (in production, this should be in database with hashed passwords)
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "barbeariaurbana123"  # In production, this should be hashed
+
 # Pydantic models
 class Service(BaseModel):
     id: str
