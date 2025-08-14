@@ -159,22 +159,41 @@ body {
   padding: 4rem 0;
 }
 
-.logo {
-  width: 200px;
-  height: auto;
+.brand-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   margin-bottom: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 255, 0, 0.1);
 }
 
-.welcome-title {
-  font-size: 3.5rem;
+.brand-title {
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 1rem;
   background: linear-gradient(135deg, var(--primary-white), var(--accent-green));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.brand-icon {
+  padding: 1rem;
+  background-color: var(--accent-green);
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2);
+}
+
+.brand-scissors {
+  width: 48px;
+  height: 48px;
+  color: var(--primary-black);
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--primary-white);
+  margin-bottom: 1rem;
 }
 
 .welcome-subtitle {
