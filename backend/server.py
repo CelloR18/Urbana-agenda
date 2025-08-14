@@ -198,7 +198,7 @@ async def get_services():
     return [Service(**service) for service in services]
 
 @app.post("/api/services", response_model=Service)
-async def create_service(service: ServiceCreate):
+async def create_service(service: ServiceCreate, current_user: str = Depends(verify_token)):
     services_collection = db.services
     service_id = str(uuid.uuid4())
     service_dict = service.dict()
