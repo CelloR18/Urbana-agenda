@@ -50,15 +50,30 @@ body {
   justify-content: space-between;
 }
 
-.nav-logo {
-  height: 50px;
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   cursor: pointer;
+  padding: 0.5rem;
   border-radius: 8px;
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.nav-logo:hover {
-  transform: scale(1.05);
+.nav-brand:hover {
+  background-color: var(--medium-grey);
+}
+
+.nav-brand-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-green);
+}
+
+.nav-brand-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-white);
 }
 
 .nav-links {
@@ -88,6 +103,16 @@ body {
 .nav-link.active {
   background-color: var(--accent-green);
   color: var(--primary-black);
+}
+
+.logout-link {
+  border: 1px solid var(--border-color);
+}
+
+.logout-link:hover {
+  border-color: var(--accent-green);
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff4444;
 }
 
 .nav-icon {
