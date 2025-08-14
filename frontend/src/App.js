@@ -111,10 +111,10 @@ function App() {
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('pt-BR', {
+    return price.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL'
-    }).format(price);
+    });
   };
 
   const formatDate = (date) => {
