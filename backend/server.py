@@ -216,7 +216,7 @@ async def get_service(service_id: str):
     return Service(**service)
 
 @app.put("/api/services/{service_id}", response_model=Service)
-async def update_service(service_id: str, service: ServiceCreate):
+async def update_service(service_id: str, service: ServiceCreate, current_user: str = Depends(verify_token)):
     services_collection = db.services
     service_dict = service.dict()
     result = await services_collection.replace_one(
@@ -228,7 +228,7 @@ async def update_service(service_id: str, service: ServiceCreate):
     return Service(**{**service_dict, "id": service_id})
 
 @app.delete("/api/services/{service_id}")
-async def delete_service(service_id: str):
+async def delete_service(service_id: str, current_user: str = Depends(verify_token)):
     services_collection = db.services
     result = await services_collection.delete_one({"id": service_id})
     if result.deleted_count == 0:
@@ -237,7 +237,7 @@ async def delete_service(service_id: str):
 
 # Appointment endpoints
 @app.get("/api/appointments", response_model=List[Appointment])
-async def get_appointments():
+async def get_appointments(current_user: str = Depends(verify_token)):
     appointments_collection = db.appointments
     appointments = await appointments_collection.find().to_list(length=None)
     return [Appointment(**appointment) for appointment in appointments]
