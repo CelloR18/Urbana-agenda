@@ -165,7 +165,7 @@ async def get_appointments():
     appointments = await appointments_collection.find().to_list(length=None)
     return [Appointment(**appointment) for appointment in appointments]
 
-@app.post("/api/appointments", response_model=Appointment)
+@app.post("/api/appointments", response_model=Appointment, status_code=201)
 async def create_appointment(appointment: AppointmentCreate):
     appointments_collection = db.appointments
     services_collection = db.services
