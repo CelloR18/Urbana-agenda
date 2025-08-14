@@ -10,7 +10,7 @@ import { Badge } from './components/ui/badge';
 import { Separator } from './components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
-import { Calendar as CalendarIcon, Clock, MapPin, Phone, MessageCircle, Scissors, User, Settings, Home } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, MapPin, Phone, MessageCircle, Scissors, User, Settings, Home, LogOut, LogIn } from 'lucide-react';
 import './App.css';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
