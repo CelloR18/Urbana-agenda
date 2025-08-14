@@ -76,6 +76,15 @@ class AvailableSlot(BaseModel):
     time: str
     available: bool
 
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class LoginResponse(BaseModel):
+    access_token: str
+    token_type: str
+    message: str
+
 # Initialize default services
 async def init_services():
     services_collection = db.services
