@@ -788,7 +788,70 @@ body {
   background-color: var(--medium-grey) !important;
 }
 
-.rdp-day_disabled {
-  color: var(--light-grey) !important;
+/* Login Dialog */
+.login-dialog {
+  background-color: var(--dark-grey);
+  border: 1px solid var(--border-color);
+}
+
+.login-title {
+  color: var(--primary-white);
+  display: flex;
+  align-items: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.login-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.login-form label {
+  color: var(--primary-white);
+  font-weight: 500;
+}
+
+.login-form input {
+  background-color: var(--medium-grey);
+  border: 1px solid var(--border-color);
+  color: var(--primary-white);
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.login-form input:focus {
+  border-color: var(--accent-green);
+  outline: none;
+}
+
+.login-error {
+  color: #ff4444;
+  background-color: rgba(255, 68, 68, 0.1);
+  border: 1px solid #ff4444;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.login-button {
+  background-color: var(--accent-green);
+  color: var(--primary-black);
+  font-weight: 600;
+}
+
+.login-button:hover {
+  background-color: var(--secondary-green);
+}
+
+.login-button:disabled {
   opacity: 0.5;
+  cursor: not-allowed;
 }
