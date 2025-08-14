@@ -118,12 +118,12 @@ function App() {
   };
 
   const formatDate = (date) => {
-    return new Intl.DateFormat('pt-BR', {
+    return date.toLocaleDateString('pt-BR', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric'
-    }).format(date);
+    });
   };
 
   const HomePage = () => (
