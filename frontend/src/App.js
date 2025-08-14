@@ -648,12 +648,13 @@ function App() {
   const Navigation = () => (
     <nav className="navigation">
       <div className="nav-container">
-        <img 
-          src="https://customer-assets.emergentagent.com/job_corte-urbano/artifacts/lsx7htp1_IMG-20250812-WA0025.jpg" 
-          alt="Barbearia Urbana" 
-          className="nav-logo"
+        <div 
+          className="nav-brand"
           onClick={() => setCurrentPage('home')}
-        />
+        >
+          <Scissors className="nav-brand-icon" />
+          <span className="nav-brand-text">Barbearia Urbana</span>
+        </div>
         
         <div className="nav-links">
           <button 
@@ -661,7 +662,7 @@ function App() {
             onClick={() => setCurrentPage('home')}
           >
             <Home className="nav-icon" />
-            Início
+            <span>Início</span>
           </button>
           
           <button 
@@ -669,7 +670,7 @@ function App() {
             onClick={() => setCurrentPage('services')}
           >
             <Scissors className="nav-icon" />
-            Serviços
+            <span>Serviços</span>
           </button>
           
           <button 
@@ -677,7 +678,7 @@ function App() {
             onClick={() => setCurrentPage('booking')}
           >
             <CalendarIcon className="nav-icon" />
-            Agendar
+            <span>Agendar</span>
           </button>
           
           <button 
@@ -685,16 +686,26 @@ function App() {
             onClick={() => setCurrentPage('contact')}
           >
             <MapPin className="nav-icon" />
-            Contato
+            <span>Contato</span>
           </button>
           
           <button 
             className={`nav-link ${currentPage === 'admin' ? 'active' : ''}`}
-            onClick={() => setCurrentPage('admin')}
+            onClick={handleAdminClick}
           >
             <Settings className="nav-icon" />
-            Admin
+            <span>Admin</span>
           </button>
+
+          {isAuthenticated && (
+            <button 
+              className="nav-link logout-link"
+              onClick={handleLogout}
+            >
+              <LogOut className="nav-icon" />
+              <span>Sair</span>
+            </button>
+          )}
         </div>
       </div>
     </nav>
