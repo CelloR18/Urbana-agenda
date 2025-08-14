@@ -734,6 +734,103 @@ function App() {
       <main className="main-content">
         {renderCurrentPage()}
       </main>
+
+      {/* Login Dialog */}
+      <Dialog open={showLoginDialog} onOpenChange={setShowLoginDialog}>
+        <DialogContent className="login-dialog">
+          <DialogHeader>
+            <DialogTitle className="login-title">
+              <LogIn className="mr-2" />
+              Acesso Administrativo
+            </DialogTitle>
+            <DialogDescription>
+              Digite suas credenciais para acessar o painel admin
+            </DialogDescription>
+          </DialogHeader>
+          
+          <form onSubmit={handleLogin} className="login-form">
+            <div className="form-group">
+              <Label htmlFor="username">Usuário</Label>
+              <Input
+                id="username"
+                value={loginForm.username}
+                onChange={(e) => setLoginForm({...loginForm, username: e.target.value})}
+                placeholder="Digite o usuário"
+                required
+              />
+            </div>
+            
+            <div className="form-group">
+              <Label htmlFor="password">Senha</Label>
+              <Input
+                id="password"
+                type="password"
+                value={loginForm.password}
+                onChange={(e) => setLoginForm({...loginForm, password: e.target.value})}
+                placeholder="Digite a senha"
+                required
+              />
+            </div>
+
+            {loginError && (
+              <div className="login-error">
+                {loginError}
+              </div>
+            )}
+
+            <DialogFooter>
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => setShowLoginDialog(false)}
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit" 
+                disabled={loading}
+                className="login-button"
+              >
+                {loading ? 'Entrando...' : 'Entrar'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Confirmation Dialog */}
+      <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+        <DialogContent className="confirmation-dialog">
+          <DialogHeader>
+            <DialogTitle>Agendamento Confirmado! ✅</DialogTitle>
+            <DialogDescription>
+              Seu horário foi reservado com sucesso na Barbearia Urbana
+            </DialogDescription>
+          </DialogHeader>
+          
+          {confirmationData && (
+            <div className="confirmation-details">
+              <h4>Detalhes do Agendamento:</h4>
+              <p><strong>Código:</strong> #{confirmationData.id.slice(-8).toUpperCase()}</p>
+              <p><strong>Serviço:</strong> {confirmationData.service_name}</p>
+              <p><strong>Data:</strong> {formatDate(new Date(confirmationData.date + 'T00:00:00'))}</p>
+              <p><strong>Horário:</strong> {confirmationData.time}</p>
+              <p><strong>Cliente:</strong> {confirmationData.client_name}</p>
+              <p><strong>Telefone:</strong> {confirmationData.client_phone}</p>
+              <p><strong>Valor:</strong> {formatPrice(confirmationData.service?.price || 0)}</p>
+            </div>
+          )}
+          
+          <DialogFooter>
+            <Button onClick={() => setShowConfirmation(false)}>
+              Fechar
+            </Button>
+            <Button onClick={() => setCurrentPage('home')} className="primary">
+              Voltar ao Início
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
