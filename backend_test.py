@@ -216,15 +216,15 @@ class BarbeariaAPITester:
         )
         
         if success and isinstance(response, list):
-            # Check if 10:00 slot is now unavailable
-            slot_10_00 = next((slot for slot in response if slot.get('time') == '10:00'), None)
-            if slot_10_00:
-                if not slot_10_00.get('available', True):
-                    print(f"   ✅ Slot 10:00 is correctly marked as unavailable")
+            # Check if 14:30 slot is now unavailable
+            slot_14_30 = next((slot for slot in response if slot.get('time') == '14:30'), None)
+            if slot_14_30:
+                if not slot_14_30.get('available', True):
+                    print(f"   ✅ Slot 14:30 is correctly marked as unavailable")
                 else:
-                    print(f"   ⚠️  Slot 10:00 should be unavailable but shows as available")
+                    print(f"   ⚠️  Slot 14:30 should be unavailable but shows as available")
             else:
-                print(f"   ⚠️  Could not find 10:00 slot in response")
+                print(f"   ⚠️  Could not find 14:30 slot in response")
                 
         return success, response
 
