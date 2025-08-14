@@ -31,6 +31,33 @@ function App() {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationData, setConfirmationData] = useState(null);
   const [loading, setLoading] = useState(false);
+  
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showLoginDialog, setShowLoginDialog] = useState(false);
+  const [loginForm, setLoginForm] = useState({
+    username: '',
+    password: ''
+  });
+  const [loginError, setLoginError] = useState('');
+
+  useEffect(() => {
+    fetchServices();
+    checkAuthStatus();
+  }, []);
+
+  useEffect(() => {
+    if (selectedDate) {
+      fetchAvailableSlots();
+    }
+  }, [selectedDate]);
+
+  const checkAuthStatus = () => {
+    const token = localStorage.getItem('admin_token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  };
 
   useEffect(() => {
     fetchServices();
