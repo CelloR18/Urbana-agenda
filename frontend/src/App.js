@@ -90,10 +90,52 @@ function App() {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get(`${BACKEND_URL}/api/appointments`);
+      const token = localStorage.getItem('admin_token');
+      const response = await axios.get(`${BACKEND_URL}/api/appointments`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       setAppointments(response.data);
     } catch (error) {
       console.error('Erro ao buscar agendamentos:', error);
+      if (error.response?.status === 401) {
+        handleLogout();
+      }
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoginError('');
+    setLoading(true);
+
+    try {
+      const response = await axios.post(`${BACKEND_URL}/api/login`, loginForm);
+      localStorage.setItem('admin_token', response.data.access_token);
+      setIsAuthenticated(true);
+      setShowLoginDialog(false);
+      setLoginForm({ username: '', password: '' });
+      setCurrentPage('admin');
+    } catch (error) {
+      console.error('Erro no login:', error);
+      setLoginError(error.response?.data?.detail || 'Erro ao fazer login');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin_token');
+    setIsAuthenticated(false);
+    setCurrentPage('home');
+  };
+
+  const handleAdminClick = () => {
+    if (isAuthenticated) {
+      setCurrentPage('admin');
+    } else {
+      setShowLoginDialog(true);
     }
   };
 
